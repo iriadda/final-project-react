@@ -1,35 +1,39 @@
 import {createSlice} from "@reduxjs/toolkit";
 
-type loginSliceType={
-    username: string,
-    password: string
+
+interface AuthState {
+    isAuthenticated: boolean;
+    // user: IUserWithTokens | null;
+    // loading: boolean;
+    // error: string | null;
 }
 
-const initialState: loginSliceType = {username: "", password: ""};
 
-export const loginSlice = createSlice({
-    name: "Slice",
+const storedUser = localStorage.getItem("user");
+const initialState: AuthState = {
+    isAuthenticated: !!storedUser,
+    // user: storedUser ? JSON.parse(storedUser) : null,
+    // loading: false,
+    // error: null,
+};
+
+export const authSlice = createSlice({
+    name: 'authSlice',
     initialState: initialState,
     reducers: {
-        // changeLoadState: (state, action: PayloadAction<boolean>) => {
-        //     state.loadState = action.payload;
-        //
-        // }
+        login: (state) => {
+            state.isAuthenticated = true;
+        },
+        logout: (state) => {
+            state.isAuthenticated = false;
+        },
     },
-    extraReducers: builder =>
-        builder
-            // .addCase(load_.fulfilled, (state, action: PayloadAction<I_[]>) => {
-            //     state.users = action.payload
-            // })
-            // .addCase(loadUsers.rejected, (state, action) => {
-            //     console.log(state);
-            //     console.log(action);
-            // })
-            // .addMatcher(isFulfilled(loadUsers), (state) => {
-            //     state.loadState = true;
-            // })
-            // .addMatcher(isRejected( loadUsers), (state) => {
-            //     console.log(state);
-            // })
-
 });
+
+export const authSliceActions = {
+    ...authSlice.actions
+}
+
+
+
+

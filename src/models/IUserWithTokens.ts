@@ -1,4 +1,4 @@
-export interface IUserWithToken {
+export interface IUserWithTokens {
     id: number;
     username: string;
     email: string;
